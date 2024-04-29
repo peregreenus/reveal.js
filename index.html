@@ -16,8 +16,245 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section>
+					<h1>
+						TypeScript
+						<h3>what the type?</h3>
+					</h1>
+					<img width="300" src="./images/typescript.png" alt="logo">
+				</section>
+				
+				<section>
+						What is Typescript?
+						<img src="./images/ts_js.png" alt="">
+					</section>
+
+				<section>
+					<section>
+						<h2>Static typing</h2>
+						<img src="./images/tsjs.jpg" alt="">
+					</section>
+					<section>
+						<img src="./images/var_mrData.jpg" alt="" width="400">
+					</section>
+      		<section>
+						Variables
+						<pre>
+							<code>
+								let isAdmin: boolean = true;
+							</code>
+						</pre>
+					</section>
+      		<section>
+						Functions
+						<pre>
+							<code>
+								function greet(name: string): string {
+									return `Hello, ${name}!`;  
+								} 
+							</code>
+						</pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Basic types</h2>
+					</section>
+					<section>
+						Primitive types
+						<pre>
+							<code>
+								let age: number = 30;
+								let name: string = "Alice";
+								let isAdmin: boolean = true;
+								// ...bigInt, symbol, undefined, null.
+							</code>
+						</pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Arrays</h2>
+					</section>
+					<section>
+						Array of numbers and tuples
+						<pre><code data-line-numbers="1|2-3">let numbers: number[] = [1, 2, 3];
+let coordinates: [number, number] = [10, 20];
+let person: [string, number, boolean] = ["Alice", 30, true];
+						</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<h2>Objects</h2>
+					<pre><code data-line-numbers>let person: { 
+	name: string; 
+	age: number;
+} = { 
+	name: "Tom", 
+	age: 23 
+};
+						</code></pre>
+				</section>
+
+				<section>
+					<section>
+						<h2>Interfaces</h2>
+					</section>
+					<section>
+						<pre><code data-line-numbers="1-6|1-11">interface User { 
+	id: number;
+	name: string;
+	age?: number;
+}
+
+const user: User = { 
+	id: 1, 
+	name: "Alice", 
+	age: 30, 
+}; 
+						</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Type aliases</h2>
+					</section>
+					<section>
+						<pre><code data-line-numbers>type Id = number | string | boolean;  
+
+let userId: Id = 2; // number  
+
+userId = "qwerty"; // string
+userId = true; // boolean
+						</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<h2>Functions</h2>
+					<section>
+						<pre><code data-line-numbers>function add(a: number, b: number): number { 
+	return a + b; 
+} 
+						</code></pre>
+					</section>
+					<section>
+						( ) => void
+						<pre><code data-line-numbers>function logMessage(message: string): void { 
+	console.log(message); 
+} 
+						</code></pre>
+						( ) => never
+						<pre><code data-line-numbers>function throwError(message: string): never { 
+	throw new Error(message); 
+} 
+						</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Generics</h2>
+						<img src="" alt="">
+					</section>
+					<section>
+						<pre><code data-line-numbers>function identity&lt;T&gt;(arg: T): T { 
+	return arg; 
+} 
+
+const result1 = identity(42); // number
+const result2 = identity("Hello"); // string
+						</code></pre>
+					</section>
+					<section>
+						<pre><code data-line-numbers>class Box&lt;T&gt; { 
+	private value: T; 
+	constructor(value: T) { 
+		this.value = value; 
+	} 
+
+	getValue(): T { 
+		return this.value; 
+	}
+} 
+
+const box1 = new Box(42); // number 
+const box2 = new Box("Hello"); // string 
+						</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Enum</h2>
+					</section>
+					<section>
+						Number enumerations
+						<pre><code data-line-numbers>enum Direction { 
+	Up = 1, 
+	Down, 
+	Left, 
+	Right, 
+}
+
+console.log(Direction.Down); // 2
+						</code></pre>
+					</section>
+					<section>
+						Number enumerations
+						<pre><code data-line-numbers>enum CustomColor { 
+	DarkRed = 3, 
+	DarkGreen, // 4 
+	DarkBlue, // 5 
+} 
+						</code></pre>
+					</section>
+					<section>
+						String Enumerations
+						<pre><code data-line-numbers>enum Color { 
+	Red = "RED", 
+	Green = "GREEN", 
+	Blue = "BLUE", 
+} 
+						</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>any</h2>
+					</section>
+					<section>
+						Function without specified types...
+						<pre><code data-line-numbers>function sum(a, b) { 
+	return a + b;
+} 
+						</code></pre>
+						...is the same as
+						<pre><code data-line-numbers>function sum(a: any, b: any): any { 
+	return a + b;
+} 
+						</code></pre>
+					</section>
+					<section>
+						Sometimes this type may be necessary. 
+						<pre><code data-line-numbers>let data: any = JSON.parse('{ "id": "abc" }'); 
+let id = data.id; 
+						</code></pre>
+					</section>
+					<section>
+						<h3>Avoid it if possible!</h3>
+						<img src="./images/any_type.jpg" alt="" width="450">
+					</section>
+				</section>
+
+				<section>
+					<h1>Thank you for your attention</h1>
+				</section>
 			</div>
 		</div>
 
